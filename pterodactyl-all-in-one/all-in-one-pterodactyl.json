@@ -1,0 +1,42 @@
+{
+    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PTERODACTYL PANEL - PTERODACTYL.IO",
+    "meta": {
+        "version": "PTDL_v2",
+        "update_url": null
+    },
+    "exported_at": "2024-04-21T14:59:52+08:00",
+    "name": "AIO ARM",
+    "author": "mail@xynnea.eu.org",
+    "description": "NodeJS LTS, Java (OpenJDK) 21, Python 3.11+, Golang, NodeJS Puppeteer\/pm2\/yarn.",
+    "features": null,
+    "docker_images": {
+        "urfavteddybear\/pterodactyl-aio": "urfavteddybear\/pterodactyl-aio"
+    },
+    "file_denylist": [],
+    "startup": "{{STARTUP_CMD}}",
+    "config": {
+        "files": "{}",
+        "startup": "{\r\n    \"done\": \"\",\r\n    \"userInteraction\": []\r\n}",
+        "logs": "{}",
+        "stop": "^C"
+    },
+    "scripts": {
+        "installation": {
+            "script": null,
+            "container": "debian:bookworm-slim",
+            "entrypoint": "bash"
+        }
+    },
+    "variables": [
+        {
+            "name": "Startup Command",
+            "description": "The startup command for your server to use.",
+            "env_variable": "STARTUP_CMD",
+            "default_value": "bash",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required",
+            "field_type": "text"
+        }
+    ]
+}
