@@ -6,7 +6,7 @@
     },
     "exported_at": "2024-04-21T14:59:52+08:00",
     "name": "Pterodactyl AIO",
-    "author": "mail@xynnea.eu.org",
+    "author": "urfavteddybear",
     "description": "NodeJS LTS, Java (OpenJDK) 21, Python 3.11+, Golang, NodeJS Puppeteer\/pm2\/yarn.",
     "features": null,
     "docker_images": {
