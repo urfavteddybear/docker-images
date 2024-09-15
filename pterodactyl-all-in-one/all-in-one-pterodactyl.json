@@ -5,7 +5,7 @@
         "update_url": null
     },
     "exported_at": "2024-04-21T14:59:52+08:00",
-    "name": "AIO ARM",
+    "name": "Pterodactyl AIO",
     "author": "mail@xynnea.eu.org",
     "description": "NodeJS LTS, Java (OpenJDK) 21, Python 3.11+, Golang, NodeJS Puppeteer\/pm2\/yarn.",
     "features": null,
@@ -23,7 +23,7 @@
     "scripts": {
         "installation": {
             "script": null,
-            "container": "debian:bookworm-slim",
+            "container": "debian:bullseye-slim",
             "entrypoint": "bash"
         }
     },
