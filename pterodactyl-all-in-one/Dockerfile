@@ -29,6 +29,12 @@ RUN apt-get update && apt-get install -y iputils-ping
 # Fix ping
 RUN setcap cap_net_raw+p /usr/bin/ping
 
+# Cloudflared
+RUN ARCH=$(dpkg --print-architecture) && \
+    curl -L --output cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-${ARCH}.deb && \
+    dpkg -i cloudflared.deb && \
+    rm cloudflared.deb
+
 # OpenJDK 21 LTS
 RUN apt update \
    && apt install -y gnupg ca-certificates curl \
@@ -114,8 +120,8 @@ RUN apt-get install -y \
 RUN npm i -g yarn pm2 pnpm
 
 
-USER container
-ENV  USER container
+USER root
+ENV  USER root
 ENV  HOME /home/container
 
 WORKDIR /home/container
