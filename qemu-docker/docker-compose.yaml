@@ -1,0 +1,22 @@
+services:
+  windows:
+    image: dockurr/windows
+    container_name: windows # change this to anything you want
+    environment:
+      VERSION: "win10" # change this to ISO URL if you want to install other OS than Windows
+      CPU_CORES: "3"
+      RAM_SIZE: "8G" # your allocated ram ammount
+      USERNAME: "QEMU" # Your local user account
+      PASSWORD: "strongpassword"
+    devices:
+      - /dev/kvm
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - 8006:8006 # comment this you plan to deploy on public IP ( Or after you done installing everything )
+      - 33899:3389/tcp
+      - 33899:3389/udp
+    stop_grace_period: 2m
+    volumes:
+      - ./data:/storage
+      - ./shared:/shared
