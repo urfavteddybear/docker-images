@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  mariadb:
+    image: mariadb:10.11
+    container_name: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: somepassword
+      MYSQL_DATABASE: test
+      MYSQL_USER: someuser
+      MYSQL_PASSWORD: somepassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mariadb_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: arm64v8/phpmyadmin # Change arm64v8 to phpmyadmin if you're not using ARM64 
+    container_name: phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: mariadb
+      PMA_PORT: 3306
+    ports:
+      - "8088:80"
+    depends_on:
+      - mariadb
