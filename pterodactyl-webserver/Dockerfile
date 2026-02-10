@@ -1,6 +1,9 @@
 FROM debian:bookworm-slim
 
+
+#
 # Base packages
+#
 RUN apt update && apt install -y \
     ca-certificates \
     apt-transport-https \
@@ -48,19 +51,25 @@ RUN apt update && apt install -y \
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 
 #
-# NodeJS 24 LTS
+# NodeJS 20 LTS
 #
 RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash - \
     && apt install -y nodejs \
     && rm -rf /var/lib/apt/lists/*
 
 #
-# Skeleton project
+# Skeleton project (template files)
 #
 COPY ./skeleton /skeleton
 
 #
-# Create container user
+# Entrypoint (must be root)
+#
+COPY ./entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+#
+# Create container user + permissions
 #
 RUN useradd -m container \
     && mkdir -p /home/container \
@@ -74,11 +83,5 @@ ENV USER=container
 ENV HOME=/home/container
 
 WORKDIR /home/container
-
-#
-# Entrypoint
-#
-COPY ./entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
 
 CMD ["/bin/bash", "/entrypoint.sh"]

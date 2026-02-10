@@ -1,0 +1,42 @@
+{
+  "_comment": "Webserver Egg - Debian PHP + Nginx + Node",
+  "meta": {
+    "version": "PTDL_v2",
+    "update_url": null
+  },
+  "exported_at": "2026-02-11T00:00:00+00:00",
+  "name": "Debian Webserver (PHP + Nginx + Node)",
+  "author": "mail@xynnea.eu.org",
+  "description": "Debian Bookworm webserver with PHP 8.2, Composer, NodeJS and Nginx.",
+  "features": null,
+  "docker_images": {
+    "custom": "urfavteddybear/pterodactyl-webserver:arm64"
+  },
+  "file_denylist": [],
+  "startup": "{{STARTUP}}",
+  "config": {
+    "files": "{}",
+    "startup": "{\n    \"done\": \"\"\n}",
+    "logs": "{\n    \"custom\": true,\n    \"location\": \"logs/nginx.log\"\n}",
+    "stop": "^C"
+  },
+  "scripts": {
+    "installation": {
+      "script": "#!/bin/bash\necho \"Using baked image, skipping install.\"",
+      "container": "debian:bookworm-slim",
+      "entrypoint": "bash"
+    }
+  },
+  "variables": [
+    {
+      "name": "Startup Command",
+      "description": "Startup command",
+      "env_variable": "STARTUP",
+      "default_value": "./start.sh",
+      "user_viewable": true,
+      "user_editable": true,
+      "rules": "required|string",
+      "field_type": "text"
+    }
+  ]
+}
