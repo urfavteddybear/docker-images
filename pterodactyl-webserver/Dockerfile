@@ -38,7 +38,7 @@ RUN apt install -y \
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
-RUN curl -fsSL https://deb.nodesource.com/setup_24.x | -E bash -
+RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash -
 RUN apt-get install -y nodejs
 
 USER container
