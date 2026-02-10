@@ -4,9 +4,7 @@ set -e
 cd /home/container
 
 mkdir -p tmp logs
-
 chmod -R 755 tmp logs webroot || true
-
 rm -rf tmp/* || true
 
 echo "Starting PHP-FPM..."

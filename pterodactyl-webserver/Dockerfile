@@ -1,9 +1,8 @@
 FROM debian:bookworm-slim
 
+ENV DEBIAN_FRONTEND=noninteractive
 
-#
 # Base packages
-#
 RUN apt update && apt install -y \
     ca-certificates \
     apt-transport-https \
@@ -16,9 +15,7 @@ RUN apt update && apt install -y \
     bash \
     lsb-release
 
-#
 # PHP 8.2 (Sury)
-#
 RUN wget -qO- https://packages.sury.org/php/apt.gpg | gpg --dearmor -o /usr/share/keyrings/php.gpg
 
 RUN echo "deb [signed-by=/usr/share/keyrings/php.gpg] https://packages.sury.org/php/ bookworm main" \
@@ -45,42 +42,21 @@ RUN apt update && apt install -y \
     php8.2-imagick \
     && rm -rf /var/lib/apt/lists/*
 
-#
-# Composer (official)
-#
+# Composer
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 
-#
 # NodeJS 20 LTS
-#
-RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash - \
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt install -y nodejs \
     && rm -rf /var/lib/apt/lists/*
 
-#
-# Skeleton project (template files)
-#
+# Skeleton template
 COPY ./skeleton /skeleton
 
-#
-# Create container user + permissions
-#
-# RUN useradd -m container \
-#     && mkdir -p /home/container \
-#     && chown -R container:container /home/container /skeleton
-
-#
-# Runtime user
-#
-USER container
-ENV USER=container
-ENV HOME=/home/container
+# Entrypoint
+COPY ./entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 WORKDIR /home/container
-
-#
-# Entrypoint (must be root)
-#
-COPY ./entrypoint.sh /entrypoint.sh
 
 CMD ["/bin/bash", "/entrypoint.sh"]
