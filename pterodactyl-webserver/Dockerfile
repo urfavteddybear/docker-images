@@ -6,7 +6,8 @@ RUN apt update && apt install -y \
   lsb-release \
   gnupg2 \
   curl \
-  wget
+  wget \
+  nginx
 
 RUN wget -qO- https://packages.sury.org/php/apt.gpg | gpg --dearmor -o /usr/share/keyrings/php.gpg
 
