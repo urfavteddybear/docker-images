@@ -1,4 +1,4 @@
-FROM debian:bullseye-slim
+FROM debian:bookworm-slim
 
 RUN apt update && apt install -y \
   ca-certificates \
@@ -11,7 +11,7 @@ RUN apt update && apt install -y \
 
 RUN wget -qO- https://packages.sury.org/php/apt.gpg | gpg --dearmor -o /usr/share/keyrings/php.gpg
 
-RUN echo "deb [signed-by=/usr/share/keyrings/php.gpg] https://packages.sury.org/php/ bullseye main" \
+RUN echo "deb [signed-by=/usr/share/keyrings/php.gpg] https://packages.sury.org/php/ bookworm main" \
  | tee /etc/apt/sources.list.d/php.list
 
 RUN apt update
