@@ -63,17 +63,11 @@ RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash - \
 COPY ./skeleton /skeleton
 
 #
-# Entrypoint (must be root)
-#
-COPY ./entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
-#
 # Create container user + permissions
 #
-RUN useradd -m container \
-    && mkdir -p /home/container \
-    && chown -R container:container /home/container /skeleton
+# RUN useradd -m container \
+#     && mkdir -p /home/container \
+#     && chown -R container:container /home/container /skeleton
 
 #
 # Runtime user
@@ -83,5 +77,10 @@ ENV USER=container
 ENV HOME=/home/container
 
 WORKDIR /home/container
+
+#
+# Entrypoint (must be root)
+#
+COPY ./entrypoint.sh /entrypoint.sh
 
 CMD ["/bin/bash", "/entrypoint.sh"]

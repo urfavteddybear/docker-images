@@ -3,17 +3,15 @@ set -e
 
 cd /home/container
 
-# First run init (copy skeleton once)
+# First run init
 if [ -z "$(ls -A /home/container)" ]; then
-  echo "Initializing server files..."
-  cp -r /skeleton/* /home/container/
+    echo "Initializing server directory..."
+    cp -r /skeleton/* /home/container/
+    chmod +x /home/container/start.sh
 fi
 
-# Fix permissions (safe for re-run)
-chown -R container:container /home/container || true
-
-# Replace Startup Variables (Pterodactyl style)
-MODIFIED_STARTUP=$(eval echo "$(echo "${STARTUP}" | sed -e 's/{{/${/g' -e 's/}}/}/g')")
+# Pterodactyl startup replace
+MODIFIED_STARTUP=$(eval echo "$(echo "${STARTUP_CMD}" | sed -e 's/{{/${/g' -e 's/}}/}/g')")
 
 echo ":/home/container$ ${MODIFIED_STARTUP}"
 
