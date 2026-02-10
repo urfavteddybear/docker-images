@@ -1,11 +1,20 @@
 #!/bin/bash
-sleep 2
+set -e
 
 cd /home/container
 
-# Replace Startup Variables
-MODIFIED_STARTUP=`eval echo $(echo ${STARTUP} | sed -e 's/{{/${/g' -e 's/}}/}/g')`
+# First run init (copy skeleton once)
+if [ -z "$(ls -A /home/container)" ]; then
+  echo "Initializing server files..."
+  cp -r /skeleton/* /home/container/
+fi
+
+# Fix permissions (safe for re-run)
+chown -R container:container /home/container || true
+
+# Replace Startup Variables (Pterodactyl style)
+MODIFIED_STARTUP=$(eval echo "$(echo "${STARTUP}" | sed -e 's/{{/${/g' -e 's/}}/}/g')")
+
 echo ":/home/container$ ${MODIFIED_STARTUP}"
 
-# Run the Server
-${MODIFIED_STARTUP}
+exec ${MODIFIED_STARTUP}
