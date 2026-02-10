@@ -45,8 +45,8 @@ RUN apt update && apt install -y \
 # Composer
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 
-# NodeJS 20 LTS
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+# NodeJS 24 LTS
+RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash - \
     && apt install -y nodejs \
     && rm -rf /var/lib/apt/lists/*
 
