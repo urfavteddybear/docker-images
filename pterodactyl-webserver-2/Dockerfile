@@ -16,6 +16,7 @@ RUN apk update --no-cache && apk add \
     php-session \
     php-soap \
     php-gmp \
+    php-xmlwriter \
     php-pdo_odbc \
     php-json \
     php-dom \
@@ -37,6 +38,7 @@ RUN apk update --no-cache && apk add \
     php-curl \
     php-ctype \
     php-phar \
+    php-xml \
     php-fileinfo \
     php-mbstring \
     php-tokenizer \
