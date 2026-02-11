@@ -18,11 +18,11 @@
         "files": "{\r\n    \"nginx\/conf.d\/default.conf\": {\r\n        \"parser\": \"file\",\r\n        \"find\": {\r\n            \"    listen \": \"    listen {{server.build.default.port}};\"\r\n        }\r\n    }\r\n}",
         "startup": "{\r\n    \"done\": \"\",\r\n    \"userInteraction\": []\r\n}",
         "logs": "{\r\n    \"custom\": false,\r\n    \"location\": \"logs\/latest.log\"\r\n}",
-        "stop": "^C"
+        "stop": "^^C"
     },
     "scripts": {
         "installation": {
-            "script": "#!\/bin\/ash\r\n\r\ncd \/mnt\/server\r\n\r\napk --update add git\r\n\r\ngit clone https:\/\/github.com\/urfavteddybear\/docker-images -b pterodactyl-webserver .\/temp\r\n\r\ncp -r .\/temp\/nginx \/mnt\/server\/\r\ncp -r .\/temp\/php-fpm \/mnt\/server\/\r\ncp .\/temp\/crontab \/mnt\/server\/\r\ncp -r .\/temp\/webroot \/mnt\/server\/\r\ncp .\/temp\/start.sh \/mnt\/server\/\r\ncp -r .\/temp\/logs \/mnt\/server\/\r\n\r\nchmod +x \/mnt\/server\/start.sh\r\n\r\nrm -rf .\/temp",
+            "script": "#!\/bin\/ash\r\n\r\ncd \/mnt\/server\r\n\r\napk --update add git\r\n\r\ngit clone https:\/\/github.com\/urfavteddybear\/docker-images -b pterodactyl-webserver .\/temp\r\n\r\ncp -r .\/temp\/nginx \/mnt\/server\/\r\ncp -r .\/temp\/php-fpm \/mnt\/server\/\r\ncp -r .\/temp\/webroot \/mnt\/server\/\r\ncp .\/temp\/start.sh \/mnt\/server\/\r\ncp -r .\/temp\/logs \/mnt\/server\/\r\n\r\nchmod +x \/mnt\/server\/start.sh\r\n\r\nrm -rf .\/temp",
             "container": "alpine:latest",
             "entrypoint": "ash"
         }
