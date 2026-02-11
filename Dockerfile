@@ -10,7 +10,6 @@ RUN apk update --no-cache && apk add \
     bash \
     nodejs \
     npm \
-    dcron \
     imagemagick \
     php \
     php-fpm \
