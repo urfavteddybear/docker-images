@@ -1,3 +1,0 @@
-# Pterodactyl Nginx Egg
-
-
