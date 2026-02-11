@@ -46,7 +46,8 @@ RUN apk update --no-cache && apk add \
     php-intl \
     php-opcache \
     php-pecl-redis \
-    php-pecl-imagick
+    php-pecl-imagick \
+    mariadb-client
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
