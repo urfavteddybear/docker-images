@@ -1,4 +1,4 @@
-FROM debian:bullseye-slim
+FROM debian:stable-slim
 
 RUN apt update \
     && apt upgrade -y \
@@ -13,9 +13,6 @@ RUN apt update \
     && apt -y install nano \
     && apt -y install bash
 
-# Grant sudo permissions to container user for commands
-RUN apt-get update && \
-    apt-get -y install sudo
     
 # Ensure UTF-8
 RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment
@@ -46,27 +43,15 @@ RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash - \
     && apt-get -y install nodejs imagemagick ffmpeg make build-essential 
 
     
-# Python 2 & 3
+# Python 3
 RUN apt update \
-   && apt -y install zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev libbz2-dev \
-   && wget https://www.python.org/ftp/python/3.12.1/Python-3.12.1.tgz \
-   && tar -xf Python-3.12.*.tgz \
-   && cd Python-3.12.1 \
-   && ./configure --enable-optimizations \
-   && make -j $(nproc) \
-   && make altinstall \
-   && cd .. \
-   && rm -rf Python-3.12.1 \
-   && rm Python-3.12.*.tgz 
-   
-# Upgrade Pip
-RUN apt -y install python3 python3-pip \
+   && apt -y install python3 python3-pip python3-dev \
    && pip3 install --upgrade pip
 
 # Golang
 RUN ARCH=$(dpkg --print-architecture) && \
-    curl -OL https://golang.org/dl/go1.21.5.linux-${ARCH}.tar.gz && \
-    tar -C /usr/local -xvf go1.21.5.linux-${ARCH}.tar.gz  
+    curl -OL https://golang.org/dl/go1.26.5.linux-${ARCH}.tar.gz && \
+    tar -C /usr/local -xvf go1.26.5.linux-${ARCH}.tar.gz  
 ENV PATH=$PATH:/usr/local/go/bin
 ENV GOROOT=/usr/local/go
 
