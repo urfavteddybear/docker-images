@@ -3,7 +3,7 @@ FROM debian:stable-slim
 RUN apt update \
     && apt upgrade -y \
     && apt -y install curl locales git \
-    && apt-get -y install liblzma-dev lzma cmake wget neofetch nano bash \
+    && apt-get -y install liblzma-dev lzma cmake wget fastfetch nano bash \
     && adduser container
 
 # Ensure UTF-8
@@ -16,7 +16,7 @@ RUN locale-gen en_US.UTF-8
 RUN apt-get update && apt-get install -y iputils-ping
 
 # Fix ping
-RUN setcap cap_net_raw+p /usr/bin/ping
+#RUN setcap cap_net_raw+p /usr/bin/ping
 
 # OpenJDK 21 LTS
 RUN apt update \
@@ -37,8 +37,7 @@ RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash - \
     
 # Python 3
 RUN apt update \
-   && apt -y install python3 python3-pip python3-dev \
-   && pip3 install --upgrade pip
+   && apt -y install python3 python3-pip python3-dev
 
 # Golang
 RUN ARCH=$(dpkg --print-architecture) && \
@@ -48,22 +47,19 @@ ENV PATH=$PATH:/usr/local/go/bin
 ENV GOROOT=/usr/local/go
 
 # Install the speedtest by ookla
-RUN curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | sudo bash \
+RUN curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | bash \
     && apt-get install speedtest -y
 # For calling speedtest, enter command "speedtest --accept-license YES"
 
 # Install the system dependencies required for puppeteer support
 RUN apt-get install -y \
     fonts-liberation \
-    gconf-service \
-    libappindicator1 \
     libasound2 \
     libatk1.0-0 \
     libcairo2 \
     libcups2 \
     libfontconfig1 \
     libgbm-dev \
-    libgdk-pixbuf2.0-0 \
     libgtk-3-0 \
     libicu-dev \
     libjpeg-dev \
