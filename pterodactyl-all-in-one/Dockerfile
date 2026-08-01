@@ -2,18 +2,10 @@ FROM debian:stable-slim
 
 RUN apt update \
     && apt upgrade -y \
-    && apt -y install curl software-properties-common locales git \
-    && apt-get -y install liblzma-dev \
-    && apt-get -y install lzma \
-    && adduser container \
-    && apt-get update \ 
-    && apt -y install cmake \
-    && apt -y install wget \
-    && apt -y install neofetch \
-    && apt -y install nano \
-    && apt -y install bash
+    && apt -y install curl locales git \
+    && apt-get -y install liblzma-dev lzma cmake wget neofetch nano bash \
+    && adduser container
 
-    
 # Ensure UTF-8
 RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment
 RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
@@ -29,8 +21,8 @@ RUN setcap cap_net_raw+p /usr/bin/ping
 # OpenJDK 21 LTS
 RUN apt update \
    && apt install -y gnupg ca-certificates curl \
-   && curl -s https://repos.azul.com/azul-repo.key | sudo gpg --dearmor -o /usr/share/keyrings/azul.gpg \
-   && echo "deb [signed-by=/usr/share/keyrings/azul.gpg] https://repos.azul.com/zulu/deb stable main" | sudo tee /etc/apt/sources.list.d/zulu.list \
+   && curl -s https://repos.azul.com/azul-repo.key | gpg --dearmor -o /usr/share/keyrings/azul.gpg \
+   && echo "deb [signed-by=/usr/share/keyrings/azul.gpg] https://repos.azul.com/zulu/deb stable main" | tee /etc/apt/sources.list.d/zulu.list \
    && apt update \
    && apt install -y zulu21-jdk
 
@@ -100,8 +92,8 @@ RUN npm i -g yarn pm2 pnpm
 
 
 USER container
-ENV  USER container
-ENV  HOME /home/container
+ENV USER=container
+ENV HOME=/home/container
 
 WORKDIR /home/container
 
